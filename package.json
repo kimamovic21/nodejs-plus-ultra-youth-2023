@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "uuid": "^9.0.0"
+  },
+  "name": "nodejs-plus-ultra-youth-2023",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./index.js localhost 3000"
+  },
+  "author": "Kerim Imamovic",
+  "license": "ISC",
+  "description": "NodeJS Course 2023",
+  "type": "module"
+}
