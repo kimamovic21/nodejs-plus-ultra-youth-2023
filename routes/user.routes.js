@@ -1,24 +1,21 @@
 import express from 'express';
 import { getUsers, getUserById, createUser, updateUser, patchUser, deleteUser } from '../controller/user.controller.js';
+import authMiddleware from '../middleware/auth.middleware.js';
+import roleMiddleware from '../middleware/role.middleware.js';
 
 const router = express.Router();
 
-router.get('/', getUsers);
-router.get('/:id', getUserById);
-router.post('/', createUser);
-router.put('/:id', updateUser);
-router.patch('/:id', patchUser);
-router.delete('/:id', deleteUser);
+router
+    .route('/')
+    // .get(authMiddleware, getUsers)
+    .get(authMiddleware, roleMiddleware, getUsers)
+    .post(authMiddleware, createUser)
 
-// router
-//     .route('/')
-//     .get(getUsers)
-//     .post(createUser);
-
-// router
-//     .route('/:id')
-//     .get(getUserById)
-//     .put(updateUser)
-//     .delete(deleteUser)
+router
+    .route('/:id')
+    .get(authMiddleware, getUserById)
+    .put(authMiddleware, updateUser)
+    .patch(authMiddleware, patchUser)
+    .delete(authMiddleware, deleteUser)
 
 export default router;

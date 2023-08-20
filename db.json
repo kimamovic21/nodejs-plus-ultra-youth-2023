@@ -9,6 +9,20 @@
             "name": "Haris",
             "job": "Full Stack Developer",
             "id": "55fd2a24-10f6-4376-9836-728529a7e9fa"
+        },
+        {
+            "name": "Test1",
+            "email": "test1@test1.com",
+            "password": "$2b$10$w26Dt09y47ooK4kAqNHZuOoxM3bGJoZqJsabsu2xP1RmFrQSJuvqi",
+            "id": "f49fdbaf-672a-4e8c-aa0d-6656b0bae15b",
+            "role": "user"
+        },
+        {
+            "name": "Test2",
+            "email": "test2@test2.com",
+            "password": "$2b$10$Zn17eKrRTE3IzDCE5eJvZeM8WuCR2PWIAk5QnT8YfFjKgZDJysooG",
+            "id": "2207bf27-fdf2-4f20-b0d8-d2db13cf3f7e",
+            "role": "admin"
         }
     ]
 }

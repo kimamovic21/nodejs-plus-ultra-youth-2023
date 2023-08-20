@@ -1,27 +1,48 @@
 import fs from 'fs';
+import { v4 as uuidv4} from 'uuid';
+import User from '../model/user.model.js';
 
-export const getUsers = (req, res) => {
-    const db = fs.readFileSync('./db.json', 'utf-8');
-    const { users } = JSON.parse(db);
-    // console.log(users);
-    res.send(users || []);
+export const getUsers = async (req, res) => {
+    const users = await User.find().select('-password');
+    res.send(users);
+
+    // const db = fs.readFileSync('./db.json', 'utf-8');
+    // const { users } = JSON.parse(db);
+    // const mappedUsers = users.map((user) => {
+    //     delete user?.password;
+    //     return user;
+    // });
+    // res.send(mappedUsers || []);
+
 };
 
-export const getUserById = (req, res) => {
-    const id = req.params.id;
-    const db = fs.readFileSync('./db.json', 'utf-8');
-    const { users } = JSON.parse(db);
-    // console.log(users);
-    const user = users?.find((user) => user.id === id);
-    // console.log(user);
-
-    if (user) {
-        console.log(user);
-        res.send(user);
+export const getUserById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findOne({ _id: id }).select('-password');
+        if (user) {
+            res.status(200).send(user);
+        }
+        else  {
+            res.status(404).send('User not found');
+        };
     }
-    else {
+    catch (error) {
         res.status(404).send('User not found');
     };
+
+    // const id = req.params.id;
+    // const db = fs.readFileSync('./db.json', 'utf-8');
+    // const { users } = JSON.parse(db);
+    // const user = users?.find((user) => user.id === id);
+
+    // if (user) {
+    //     delete user?.password;
+    //     res.send(user);
+    // }
+    // else {
+    //     res.status(404).send('User not found');
+    // };
 };
 
 export const createUser = (req, res) => {
@@ -56,8 +77,7 @@ export const updateUser = (req, res) => {
     const parsedDb = JSON.parse(db);
 
     const index = parsedDb.users.findIndex((user) => user.id === id);
-    // console.log(index);
-    parsedDb.users[index] = user;
+    parsedDb.users[index] = {...user, password: parsedDb.users[index].password};
 
     try {
         fs.writeFileSync('./db.json', JSON.stringify(parsedDb));
@@ -76,7 +96,6 @@ export const patchUser = (req, res) => {
     const parsedDb = JSON.parse(db);
 
     const index = parsedDb.users.findIndex((user) => user.id === id);
-    // console.log(index);
 
     for (const [key, value] of Object.entries(user)) {
         parsedDb.users[index][key] = value;
@@ -98,7 +117,6 @@ export const deleteUser = (req, res) => {
     const parsedDb = JSON.parse(db);
 
     const index = parsedDb.users.findIndex((user) => user.id === id);
-    // console.log(index);
 
     if (index !== -1) {
         try {

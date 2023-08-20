@@ -24,3 +24,14 @@ app.patch('/users/:id', ... )
 -kreiramo folder controller
 -kreiramo user.controller.js fajl
 -u fajlu user.controller.js kreiramo funkcije
+-kreiramo auth.router.js fajl
+-kreiramo auth.controller.js fajl
+-u terminalu instaliramo bcrypt paket
+-kreiramo constants.js fajl
+-u terminalu instaliramo paket jsonwebtoken
+-kreiramo folder middleware
+-u folderu middleware kreiramo auth.middleware.js fajl
+-kreiramo role.middleware.js fajl
+-u terminalu instaliramo paket mongoose
+-kreiramo folder model
+-u folderu model kreiramo user.model.js fajl
